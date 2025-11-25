@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import LoanCalculator from "../../components/LoanCalculator/LoanCalculator";
 import styles from "./HomePage.module.css";
 
 // Background images - homes in Israel
@@ -100,6 +101,12 @@ const HomePage = () => {
           <h3>📊 Dashboard</h3>
           <p>Get an overview of all your properties and loan calculations in one place</p>
         </Link>
+      </div>
+
+      <div className={styles.calculatorSection}>
+        <h2>Try Our Loan Calculator</h2>
+        <p className={styles.calculatorSubtitle}>Calculate your mortgage payments instantly</p>
+        <LoanCalculator />
       </div>
     </div>
   );

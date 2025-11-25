@@ -43,10 +43,10 @@ function PropertyForm({ property, onSubmit, onCancel }) {
   return (
     <div className="property-form-overlay">
       <div className="property-form-container">
-        <h2>{property ? 'ערוך נכס' : 'הוסף נכס חדש'}</h2>
+        <h2>{property ? 'Edit Property' : 'Add New Property'}</h2>
         <form onSubmit={handleSubmit} className="property-form">
           <div className="form-group">
-            <label htmlFor="title">כותרת *</label>
+            <label htmlFor="title">Title *</label>
             <input
               type="text"
               id="title"
@@ -58,7 +58,7 @@ function PropertyForm({ property, onSubmit, onCancel }) {
           </div>
 
           <div className="form-group">
-            <label htmlFor="price">מחיר (₪) *</label>
+            <label htmlFor="price">Price (₪) *</label>
             <input
               type="number"
               id="price"
@@ -72,7 +72,7 @@ function PropertyForm({ property, onSubmit, onCancel }) {
           </div>
 
           <div className="form-group">
-            <label htmlFor="location">מיקום *</label>
+            <label htmlFor="location">Location *</label>
             <input
               type="text"
               id="location"
@@ -84,7 +84,7 @@ function PropertyForm({ property, onSubmit, onCancel }) {
           </div>
 
           <div className="form-group">
-            <label htmlFor="description">תיאור</label>
+            <label htmlFor="description">Description</label>
             <textarea
               id="description"
               name="description"
@@ -95,24 +95,24 @@ function PropertyForm({ property, onSubmit, onCancel }) {
           </div>
 
           <div className="form-group">
-            <label htmlFor="status">סטטוס</label>
+            <label htmlFor="status">Status</label>
             <select
               id="status"
               name="status"
               value={formData.status}
               onChange={handleChange}
             >
-              <option value="available">זמין</option>
-              <option value="sold">נמכר</option>
+              <option value="available">Available</option>
+              <option value="sold">Sold</option>
             </select>
           </div>
 
           <div className="form-actions">
             <button type="submit" className="submit-btn">
-              {property ? 'עדכן' : 'הוסף'}
+              {property ? 'Update' : 'Add'}
             </button>
             <button type="button" onClick={onCancel} className="cancel-btn">
-              ביטול
+              Cancel
             </button>
           </div>
         </form>

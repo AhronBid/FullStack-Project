@@ -34,7 +34,7 @@ const PropertyCard = ({ property, onDelete, onEdit, onToggleStatus }) => {
 
       <div className={styles.cardHeader}>
         <div className={styles.headerLeft}>
-          <h3 className={styles.propertyTitle}>{getPropertyTypeLabel(property.propertyType)}</h3>
+          <h3 className={styles.propertyTitle}>{property.title || getPropertyTypeLabel(property.propertyType)}</h3>
           <span className={`${styles.statusBadge} ${getStatusBadgeClass(property.status)}`}>
             {property.status === "sold" ? "Sold" : "Available"}
           </span>
@@ -43,7 +43,7 @@ const PropertyCard = ({ property, onDelete, onEdit, onToggleStatus }) => {
           {onToggleStatus && (
             <button
               className={styles.toggleButton}
-              onClick={() => onToggleStatus(property.id)}
+              onClick={() => onToggleStatus(property._id || property.id)}
               title={property.status === "sold" ? "Mark as Available" : "Mark as Sold"}
             >
               {property.status === "sold" ? "✓" : "○"}
@@ -55,7 +55,7 @@ const PropertyCard = ({ property, onDelete, onEdit, onToggleStatus }) => {
             </button>
           )}
           {onDelete && (
-            <button className={styles.deleteButton} onClick={() => onDelete(property.id)} title="Delete Property">
+            <button className={styles.deleteButton} onClick={() => onDelete(property._id || property.id)} title="Delete Property">
               ×
             </button>
           )}
@@ -63,12 +63,14 @@ const PropertyCard = ({ property, onDelete, onEdit, onToggleStatus }) => {
       </div>
 
       <div className={styles.propertyDetails}>
-        <div className={styles.address}>
-          <strong>Address:</strong> {property.address}
+        <div className={styles.location}>
+          <strong>Location:</strong> {property.location || `${property.address || ''}, ${property.city || ''}`.trim() || 'N/A'}
         </div>
-        <div className={styles.city}>
-          <strong>City:</strong> {property.city}
-        </div>
+        {property.propertyType && (
+          <div className={styles.propertyType}>
+            <strong>Type:</strong> {getPropertyTypeLabel(property.propertyType)}
+          </div>
+        )}
 
         <div className={styles.propertyInfo}>
           <div className={styles.infoItem}>
@@ -90,7 +92,9 @@ const PropertyCard = ({ property, onDelete, onEdit, onToggleStatus }) => {
           </div>
         )}
 
-        <div className={styles.createdAt}>Added: {new Date(property.createdAt).toLocaleDateString("en-US")}</div>
+        {property.createdAt && (
+          <div className={styles.createdAt}>Added: {new Date(property.createdAt).toLocaleDateString("en-US")}</div>
+        )}
       </div>
     </div>
   );

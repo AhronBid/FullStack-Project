@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setLoanAmount, setInterestRate, setLoanTerm, calculateLoan } from "../../store/slices/loanSlice";
 import styles from "./LoanCalculator.module.css";
@@ -12,6 +12,13 @@ const LoanCalculator = () => {
   const handleCalculate = () => {
     dispatch(calculateLoan());
   };
+
+  // Auto-calculate when values change
+  useEffect(() => {
+    if (loanAmount > 0 && interestRate >= 0 && loanTerm > 0) {
+      dispatch(calculateLoan());
+    }
+  }, [loanAmount, interestRate, loanTerm, dispatch]);
 
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat("en-IL", {
@@ -61,7 +68,7 @@ const LoanCalculator = () => {
         </div>
 
         <button className={styles.calculateButton} onClick={handleCalculate} disabled={loanAmount <= 0}>
-          Calculate Payments
+          Recalculate
         </button>
       </div>
 
